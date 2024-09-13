@@ -27,26 +27,27 @@ const Register = () => {
   });
 
   return (
-    <Container 
+    <Box 
       sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center', 
         minHeight: '100vh', 
-        padding: 0,
-        margin: 0,
-        width: '100vw' 
+        width: '100vw',
+        bgcolor: '#f0f0f0'  // Match the outer background color
       }}
     >
       <Box 
         sx={{ 
           width: '100%', 
           maxWidth: '500px', 
-          bgcolor: 'background.paper', 
+          bgcolor: '#ffffff', // Form container background color
+          color: 'blue', // Text color inside the form container
           p: 3, 
           borderRadius: 1, 
-          boxShadow: 3 
+          boxShadow: 3,
+          textAlign: 'center',
         }}
       >
         <Typography variant="h4" align="center" gutterBottom>
@@ -64,6 +65,25 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#4caf50', // Default border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#388e3c', // Border color on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#1b5e20', // Border color when focused
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#4caf50', // Label color
+              },
+              '& .MuiFormHelperText-root': {
+                color: '#d32f2f', // Helper text color
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -76,6 +96,25 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#4caf50', // Default border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#388e3c', // Border color on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#1b5e20', // Border color when focused
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#4caf50', // Label color
+              },
+              '& .MuiFormHelperText-root': {
+                color: '#d32f2f', // Helper text color
+              },
+            }}
           />
           <TextField
             fullWidth
@@ -89,13 +128,32 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
+            sx={{
+              '& .MuiOutlinedInput-root': {
+                '& fieldset': {
+                  borderColor: '#4caf50', // Default border color
+                },
+                '&:hover fieldset': {
+                  borderColor: '#388e3c', // Border color on hover
+                },
+                '&.Mui-focused fieldset': {
+                  borderColor: '#1b5e20', // Border color when focused
+                },
+              },
+              '& .MuiInputLabel-root': {
+                color: '#4caf50', // Label color
+              },
+              '& .MuiFormHelperText-root': {
+                color: '#d32f2f', // Helper text color
+              },
+            }}
           />
           <Button color="primary" variant="contained" fullWidth type="submit">
             Register
           </Button>
         </form>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

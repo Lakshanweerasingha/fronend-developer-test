@@ -3,22 +3,27 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Register from './components/Register';
 import Login from './components/Login';
-import Todo from './components/Todo'; // Import Todo component
+import Todo from './components/Todo';
 
 function App() {
-  const { isAuthenticated } = useAuth();
-
   return (
     <AuthProvider>
       <Router>
-        <Routes>
-          <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/todo" element={isAuthenticated() ? <Todo /> : <Navigate to="/login" />} />
-          <Route path="/" element={<Navigate to="/login" />} />
-        </Routes>
+        <AppRoutes />
       </Router>
     </AuthProvider>
+  );
+}
+
+function AppRoutes() {
+  const { isAuthenticated } = useAuth();
+
+  return (
+    <Routes>
+      <Route path="/register" element={<Register />} />
+      <Route path="/login" element={<Login />} />
+      <Route path="/todos" element={isAuthenticated ? <Todo /> : <Navigate to="/login" />} />
+    </Routes>
   );
 }
 

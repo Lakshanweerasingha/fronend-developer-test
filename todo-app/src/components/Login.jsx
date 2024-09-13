@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Typography, Box } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -20,31 +22,32 @@ const Login = () => {
     }),
     onSubmit: (values) => {
       login(values);
-      alert('User logged in successfully!');
+      navigate('/todos');
     },
   });
 
   return (
-    <Container 
+    <Box 
       sx={{ 
         display: 'flex', 
         flexDirection: 'column', 
         justifyContent: 'center', 
         alignItems: 'center', 
         minHeight: '100vh', 
-        padding: 0,
-        margin: 0,
-        width: '100vw' 
+        width: '100vw',
+        bgcolor: '#f0f0f0'  // Match the outer background color
       }}
     >
       <Box 
         sx={{ 
           width: '100%', 
           maxWidth: '500px', 
-          bgcolor: 'background.paper', 
+          bgcolor: '#ffffff', // Form container background color
+          color: '#000', // Text color inside the form container
           p: 3, 
           borderRadius: 1, 
-          boxShadow: 3 
+          boxShadow: 3,
+          textAlign: 'center',
         }}
       >
         <Typography variant="h4" align="center" gutterBottom>
@@ -81,7 +84,7 @@ const Login = () => {
           </Button>
         </form>
       </Box>
-    </Container>
+    </Box>
   );
 };
 

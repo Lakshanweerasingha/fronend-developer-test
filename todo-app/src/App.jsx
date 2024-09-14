@@ -1,3 +1,4 @@
+// App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
@@ -23,6 +24,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/todos" element={isAuthenticated ? <Todo /> : <Navigate to="/login" />} />
+      <Route path="*" element={<Navigate to="/login" />} /> {/* Redirect all other routes */}
     </Routes>
   );
 }

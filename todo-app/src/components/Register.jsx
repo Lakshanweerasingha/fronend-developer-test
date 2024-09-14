@@ -1,11 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Box, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 const Register = () => {
-  const { login } = useAuth();
+  const { register, error } = useAuth();  // Get the error state from context
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues: {
@@ -21,35 +23,18 @@ const Register = () => {
       name: Yup.string().required('Required'),
     }),
     onSubmit: (values) => {
-      login(values);
-      alert('User registered successfully!');
+      register(values);  // Register the user
+      if (!error) {
+        // Redirect to login page after successful registration
+        alert('User registered successfully!');
+        navigate('/login', { state: { email: values.email, password: values.password } });  // Pass email and password to login
+      }
     },
   });
 
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        minHeight: '100vh', 
-        width: '100vw',
-        bgcolor: '#f0f0f0'  // Match the outer background color
-      }}
-    >
-      <Box 
-        sx={{ 
-          width: '100%', 
-          maxWidth: '500px', 
-          bgcolor: '#ffffff', // Form container background color
-          color: 'blue', // Text color inside the form container
-          p: 3, 
-          borderRadius: 1, 
-          boxShadow: 3,
-          textAlign: 'center',
-        }}
-      >
+    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100vw', bgcolor: '#f0f0f0' }}>
+      <Box sx={{ width: '100%', maxWidth: '500px', bgcolor: '#ffffff', p: 3, borderRadius: 1, boxShadow: 3 }}>
         <Typography variant="h4" align="center" gutterBottom>
           Register
         </Typography>
@@ -65,25 +50,6 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.name && Boolean(formik.errors.name)}
             helperText={formik.touched.name && formik.errors.name}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: '#4caf50', // Default border color
-                },
-                '&:hover fieldset': {
-                  borderColor: '#388e3c', // Border color on hover
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#1b5e20', // Border color when focused
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: '#4caf50', // Label color
-              },
-              '& .MuiFormHelperText-root': {
-                color: '#d32f2f', // Helper text color
-              },
-            }}
           />
           <TextField
             fullWidth
@@ -96,25 +62,6 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.email && Boolean(formik.errors.email)}
             helperText={formik.touched.email && formik.errors.email}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: '#4caf50', // Default border color
-                },
-                '&:hover fieldset': {
-                  borderColor: '#388e3c', // Border color on hover
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#1b5e20', // Border color when focused
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: '#4caf50', // Label color
-              },
-              '& .MuiFormHelperText-root': {
-                color: '#d32f2f', // Helper text color
-              },
-            }}
           />
           <TextField
             fullWidth
@@ -128,26 +75,15 @@ const Register = () => {
             onBlur={formik.handleBlur}
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
-            sx={{
-              '& .MuiOutlinedInput-root': {
-                '& fieldset': {
-                  borderColor: '#4caf50', // Default border color
-                },
-                '&:hover fieldset': {
-                  borderColor: '#388e3c', // Border color on hover
-                },
-                '&.Mui-focused fieldset': {
-                  borderColor: '#1b5e20', // Border color when focused
-                },
-              },
-              '& .MuiInputLabel-root': {
-                color: '#4caf50', // Label color
-              },
-              '& .MuiFormHelperText-root': {
-                color: '#d32f2f', // Helper text color
-              },
-            }}
           />
+
+          {/* Display error message if the email is already registered */}
+          {error && (
+            <Typography color="error" variant="body2">
+              {error}
+            </Typography>
+          )}
+
           <Button color="primary" variant="contained" fullWidth type="submit">
             Register
           </Button>

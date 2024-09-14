@@ -1,18 +1,20 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, error } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();  // Get location to check if data is passed
 
+  // Use formik for form handling
   const formik = useFormik({
     initialValues: {
-      email: '',
-      password: '',
+      email: location.state?.email || '',  // Pre-fill if email is passed from registration
+      password: location.state?.password || '',  // Pre-fill if password is passed
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
@@ -21,8 +23,10 @@ const Login = () => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-      login(values);
-      navigate('/todos');
+      login(values);  // Perform login
+      if (!error) {
+        navigate('/todos');  // Redirect to todos after successful login
+      }
     },
   });
 
@@ -79,6 +83,14 @@ const Login = () => {
             error={formik.touched.password && Boolean(formik.errors.password)}
             helperText={formik.touched.password && formik.errors.password}
           />
+
+          {/* Display error message if login fails */}
+          {error && (
+            <Typography color="error" variant="body2">
+              {error}
+            </Typography>
+          )}
+
           <Button color="primary" variant="contained" fullWidth type="submit">
             Login
           </Button>

@@ -4,18 +4,17 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
-import '../Css/Login.css';  // Import the CSS file
-
+import '../Css/Login.css';  
 const Login = () => {
   const { login, error } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation();  // Get location to check if data is passed
+  const location = useLocation();  
 
   // Use formik for form handling
   const formik = useFormik({
     initialValues: {
-      email: location.state?.email || '',  // Pre-fill if email is passed from registration
-      password: location.state?.password || '',  // Pre-fill if password is passed
+      email: location.state?.email || '',  
+      password: location.state?.password || '',  
     },
     validationSchema: Yup.object({
       email: Yup.string().email('Invalid email address').required('Required'),
@@ -24,16 +23,16 @@ const Login = () => {
         .required('Required'),
     }),
     onSubmit: (values) => {
-      login(values);  // Perform login
+      login(values);  
       if (!error) {
-        navigate('/todos');  // Redirect to todos after successful login
+        navigate('/todos');  
       }
     },
   });
 
-  // Function to handle navigation to register page
+
   const goToRegister = () => {
-    navigate('/register');  // Redirect to register page
+    navigate('/register');  
   };
 
   return (

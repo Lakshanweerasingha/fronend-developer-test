@@ -24,7 +24,7 @@ function AppRoutes() {
       <Route path="/register" element={<Register />} />
       <Route path="/login" element={<Login />} />
       <Route path="/todos" element={isAuthenticated ? <Todo /> : <Navigate to="/login" />} />
-      <Route path="*" element={<Navigate to="/login" />} /> {/* Redirect all other routes */}
+      <Route path="*" element={<Navigate to="/login" />} /> 
     </Routes>
   );
 }

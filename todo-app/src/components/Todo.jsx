@@ -4,11 +4,11 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
-import '../Css/Todo.css';  // Import the CSS file
+import '../Css/Todo.css';  
 
 const Todo = () => {
-  const { logout } = useAuth(); // Get the logout function from AuthContext
-  const navigate = useNavigate(); // Use navigate for redirection
+  const { logout } = useAuth(); 
+  const navigate = useNavigate(); 
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [editIndex, setEditIndex] = useState(null);
@@ -46,8 +46,8 @@ const Todo = () => {
   };
 
   const handleLogout = () => {
-    logout(); // Call the logout function
-    navigate('/login'); // Redirect to login page after logout
+    logout(); 
+    navigate('/login'); 
   };
 
   return (
@@ -98,7 +98,6 @@ const Todo = () => {
             </ListItem>
           ))}
         </List>
-        {/* Logout Button */}
         <Button
           variant="contained"
           color="secondary"

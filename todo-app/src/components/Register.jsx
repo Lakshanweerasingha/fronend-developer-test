@@ -4,10 +4,10 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
-import '../Css/Register.css';  // Import the CSS file
+import '../Css/Register.css';  
 
 const Register = () => {
-  const { register, error } = useAuth();  // Get the error state from context
+  const { register, error } = useAuth(); 
   const navigate = useNavigate();
 
   const formik = useFormik({
@@ -24,12 +24,11 @@ const Register = () => {
       name: Yup.string().required('Required'),
     }),
     onSubmit: (values) => {
-      register(values);  // Register the user
-      // Check if there is an error (e.g., email already registered)
+      register(values);  
+  
       if (!error) {
-        // If no error, proceed with registration success
         alert('User registered successfully!');
-        navigate('/login', { state: { email: values.email, password: values.password } });  // Pass email and password to login
+        navigate('/login', { state: { email: values.email, password: values.password } });  
       }
     },
   });

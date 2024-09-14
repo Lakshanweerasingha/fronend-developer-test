@@ -25,7 +25,6 @@ export const AuthProvider = ({ children }) => {
     if (userExists) {
       setError('Email is already registered');
     } else {
-      // Register new user and log them in
       setUsers([...users, values]);
       setIsAuthenticated(true);
       setError(null);
@@ -33,8 +32,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    setIsAuthenticated(false); // Clear authentication state
-    // Additional cleanup actions can be performed here if necessary
+    setIsAuthenticated(false); 
   };
 
   return (

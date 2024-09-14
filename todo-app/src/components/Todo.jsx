@@ -2,8 +2,13 @@ import React, { useState } from 'react';
 import { TextField, Button, List, ListItem, ListItemText, IconButton, Typography, Box, Checkbox } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import '../Css/Todo.css';  // Import the CSS file
 
 const Todo = () => {
+  const { logout } = useAuth(); // Get the logout function from AuthContext
+  const navigate = useNavigate(); // Use navigate for redirection
   const [todos, setTodos] = useState([]);
   const [newTodo, setNewTodo] = useState('');
   const [editIndex, setEditIndex] = useState(null);
@@ -40,34 +45,18 @@ const Todo = () => {
     setTodos(updatedTodos);
   };
 
+  const handleLogout = () => {
+    logout(); // Call the logout function
+    navigate('/login'); // Redirect to login page after logout
+  };
+
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        minHeight: '100vh',
-        width: '100vw',
-        bgcolor: '#f0f0f0'  // Match the outer background color with the rest of the app
-      }}
-    >
-      <Box 
-        sx={{ 
-          width: '100%', 
-          maxWidth: '500px', 
-          bgcolor: '#ffffff', // Form container background color
-          color: '#000', // Text color inside the form container
-          p: 3, 
-          borderRadius: 1, 
-          boxShadow: 3,
-          textAlign: 'center',
-        }}
-      >
+    <Box className="todo-container">
+      <Box className="todo-form-container">
         <Typography variant="h4" gutterBottom>
           Todo List
         </Typography>
-        <Box sx={{ display: 'flex', mb: 2 }}>
+        <Box className="input-container">
           <TextField
             fullWidth
             label="New Todo"
@@ -78,7 +67,7 @@ const Todo = () => {
             color="primary" 
             variant="contained" 
             onClick={addOrUpdateTodo} 
-            sx={{ ml: 2 }}
+            className="add-button"
           >
             {editIndex !== null ? 'Update' : 'Add'}
           </Button>
@@ -104,11 +93,20 @@ const Todo = () => {
               />
               <ListItemText 
                 primary={todo.text} 
-                sx={{ textDecoration: todo.done ? 'line-through' : 'none' }} 
+                className={`todo-text ${todo.done ? 'done' : ''}`} 
               />
             </ListItem>
           ))}
         </List>
+        {/* Logout Button */}
+        <Button
+          variant="contained"
+          color="secondary"
+          onClick={handleLogout}
+          className="logout-button"
+        >
+          Logout
+        </Button>
       </Box>
     </Box>
   );

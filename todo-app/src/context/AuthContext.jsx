@@ -32,8 +32,13 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const logout = () => {
+    setIsAuthenticated(false); // Clear authentication state
+    // Additional cleanup actions can be performed here if necessary
+  };
+
   return (
-    <AuthContext.Provider value={{ login, register, isAuthenticated, error }}>
+    <AuthContext.Provider value={{ login, register, logout, isAuthenticated, error }}>
       {children}
     </AuthContext.Provider>
   );

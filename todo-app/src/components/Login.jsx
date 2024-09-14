@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Typography, Box } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
+import '../Css/Login.css';  // Import the CSS file
 
 const Login = () => {
   const { login, error } = useAuth();
@@ -36,29 +37,8 @@ const Login = () => {
   };
 
   return (
-    <Box 
-      sx={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        minHeight: '100vh', 
-        width: '100vw',
-        bgcolor: '#f0f0f0'  // Match the outer background color
-      }}
-    >
-      <Box 
-        sx={{ 
-          width: '100%', 
-          maxWidth: '500px', 
-          bgcolor: '#ffffff', // Form container background color
-          color: '#000', // Text color inside the form container
-          p: 3, 
-          borderRadius: 1, 
-          boxShadow: 3,
-          textAlign: 'center',
-        }}
-      >
+    <Box className="login-container">
+      <Box className="login-form-container">
         <Typography variant="h4" align="center" gutterBottom>
           Login
         </Typography>
@@ -91,12 +71,12 @@ const Login = () => {
 
           {/* Display error message if login fails */}
           {error && (
-            <Typography color="error" variant="body2">
+            <Typography color="error" variant="body2" className="error-message">
               {error}
             </Typography>
           )}
 
-          <Button color="primary" variant="contained" fullWidth type="submit" sx={{ mt: 2 }}>
+          <Button color="primary" variant="contained" fullWidth type="submit" className="submit-button">
             Login
           </Button>
 
@@ -105,7 +85,7 @@ const Login = () => {
             variant="outlined"
             fullWidth
             onClick={goToRegister}
-            sx={{ mt: 2 }}
+            className="register-button"
           >
             Go to Register
           </Button>

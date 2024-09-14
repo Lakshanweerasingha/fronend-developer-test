@@ -4,6 +4,7 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import { TextField, Button, Box, Typography } from '@mui/material';
 import { useAuth } from '../context/AuthContext';
+import '../Css/Register.css';  // Import the CSS file
 
 const Register = () => {
   const { register, error } = useAuth();  // Get the error state from context
@@ -34,8 +35,8 @@ const Register = () => {
   });
 
   return (
-    <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', minHeight: '100vh', width: '100vw', bgcolor: '#f0f0f0' }}>
-      <Box sx={{ width: '100%', maxWidth: '500px', bgcolor: '#ffffff', p: 3, borderRadius: 1, boxShadow: 3 }}>
+    <Box className="register-container">
+      <Box className="register-form-container">
         <Typography variant="h4" align="center" gutterBottom>
           Register
         </Typography>
@@ -80,14 +81,14 @@ const Register = () => {
 
           {/* Display error message if the email is already registered */}
           {error && (
-            <Typography color="error" variant="body2">
+            <Typography color="error" variant="body2" className="error-message">
               {error === 'Email already registered'
                 ? 'This email is already registered. Please login instead.'
                 : error}
             </Typography>
           )}
 
-          <Button color="primary" variant="contained" fullWidth type="submit">
+          <Button color="primary" variant="contained" fullWidth type="submit" className="submit-button">
             Register
           </Button>
         </form>

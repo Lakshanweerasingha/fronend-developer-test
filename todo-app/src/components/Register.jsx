@@ -24,8 +24,9 @@ const Register = () => {
     }),
     onSubmit: (values) => {
       register(values);  // Register the user
+      // Check if there is an error (e.g., email already registered)
       if (!error) {
-        // Redirect to login page after successful registration
+        // If no error, proceed with registration success
         alert('User registered successfully!');
         navigate('/login', { state: { email: values.email, password: values.password } });  // Pass email and password to login
       }
@@ -80,7 +81,9 @@ const Register = () => {
           {/* Display error message if the email is already registered */}
           {error && (
             <Typography color="error" variant="body2">
-              {error}
+              {error === 'Email already registered'
+                ? 'This email is already registered. Please login instead.'
+                : error}
             </Typography>
           )}
 

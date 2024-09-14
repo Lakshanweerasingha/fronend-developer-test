@@ -30,6 +30,11 @@ const Login = () => {
     },
   });
 
+  // Function to handle navigation to register page
+  const goToRegister = () => {
+    navigate('/register');  // Redirect to register page
+  };
+
   return (
     <Box 
       sx={{ 
@@ -91,8 +96,18 @@ const Login = () => {
             </Typography>
           )}
 
-          <Button color="primary" variant="contained" fullWidth type="submit">
+          <Button color="primary" variant="contained" fullWidth type="submit" sx={{ mt: 2 }}>
             Login
+          </Button>
+
+          {/* Add a "Go to Register" button */}
+          <Button
+            variant="outlined"
+            fullWidth
+            onClick={goToRegister}
+            sx={{ mt: 2 }}
+          >
+            Go to Register
           </Button>
         </form>
       </Box>
